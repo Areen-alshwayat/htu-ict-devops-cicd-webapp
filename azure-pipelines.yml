@@ -51,9 +51,21 @@ steps:
     verbose: true
     quiet: true
 
-
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'SAREEN@52.170.5.141'
+    sourceFolder: 'hello_app/'
+    contents: '**'
+    targetFolder: 'webapp.py'
+    readyTimeout: '20000'
    
     
 
-    
+- script: python src/views.py
 
+- script: python -m pip install --upgrade pip setuptools wheel
+  displayName: 'Install tools'
+
+
+- script: pip install -r requirements.txt
+  displayName: 'Install requirements'
