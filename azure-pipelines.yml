@@ -12,8 +12,8 @@ pool:
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: 3.7.3
-  displayName: 'Use Python 3.7.3'
+    versionSpec: 3.7.6 
+  displayName: 'Use Python 3.7.6'
  
 - script: |
          python -m venv antenv
