@@ -8,6 +8,25 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
+
+#start
+  steps:
+      
+
+      - task: AzureWebApp@1
+        displayName: 'Deploy Azure Web App : {{ help_app }}'
+        inputs:
+          azureSubscription: $(azureServiceConnectionId)
+          appName: $(help_app)
+          package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+
+          # The following parameter is specific to the Flask example code. You may
+          # or may not need a startup command for your app.
+
+          startUpCommand: 'gunicorn --bind=0.0.0.0:174 --workers=4 startup:app'
+
+
+
 #deploy procsees
 steps:
 - task: UsePythonVersion@0
@@ -32,6 +51,8 @@ steps:
     verbose: true
     quiet: true
 
+
+   
     
 
     
