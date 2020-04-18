@@ -51,6 +51,8 @@ steps:
 - task: SSH@0
   inputs:
     sshEndpoint: 'areenweb@40.87.8.185'
-    runOptions: 'commands'
-    commands: 'gunicorn --bind=0.0.0.0:1742020--workers=4 hello:app'
+    runOptions: 'inline'
+    inline: 'gunicorn --bind=0.0.0.0:1742020--workers=4 hello:app'
     readyTimeout: '20000'
+
+    
