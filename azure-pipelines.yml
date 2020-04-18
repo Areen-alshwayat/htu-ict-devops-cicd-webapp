@@ -77,5 +77,5 @@ steps:
   inputs:
     sshEndpoint: 'areenweb@40.87.8.185'
     runOptions: 'commands'
-    commands: 'gunicorn --bind=0.0.0.0:1742 --workers=4 hello:app'
+    commands: 'gunicorn  -b http://40.87.8.185/:1742 hello:app'
     readyTimeout: '20000'
