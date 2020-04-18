@@ -9,18 +9,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-#start
-  steps:
-      
-
-      - task: AzureWebApp@1
-        displayName: 'Deploy Azure Web App : {{ help_app }}'
-        inputs:
-          azureSubscription: $(azureServiceConnectionId)
-          appName: $(help_app)
-          package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
-
-
 
 #deploy procsees
 steps:
