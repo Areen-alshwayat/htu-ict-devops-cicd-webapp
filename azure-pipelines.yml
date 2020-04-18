@@ -8,10 +8,6 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-
-
-
-
     
 
 
@@ -48,14 +44,6 @@ steps:
     targetFolder: 'webapp.py'
     readyTimeout: '20000'
 
-- task: AzureWebApp@1
-  inputs:
-    azureSubscription: '$(azureServiceConnectionId)'
-    appType: 'webAppLinux'
-    appName: '$(help_app)'
-    package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
-    startUpCommand: 'gunicorn --bind=0.0.0.0 --workers=4 hello:app'
-   
     
 
 
