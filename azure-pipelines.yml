@@ -41,17 +41,7 @@ steps:
 
 
 
-- script: |
-    pip install pytest
-    pip install pytest-cov
-    pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
-  displayName: 'Test with pytest'
 
-- script: |
-    echo Deleting .env
-    deactivate
-    rm -rf .env
-  displayName: 'Remove .env before zip'
 - task: SSH@0
   inputs:
     sshEndpoint: 'areenweb@40.87.8.185'
