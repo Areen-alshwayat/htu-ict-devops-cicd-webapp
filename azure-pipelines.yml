@@ -20,10 +20,6 @@ pool:
           appName: $(help_app)
           package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
 
-         
-
-          startUpCommand: 'gunicorn --bind=0.0.0.0:1742020 --workers=4 startup:app'
-
 
 
 #deploy procsees
@@ -64,3 +60,9 @@ steps:
 - script: python -m pip install --upgrade pip setuptools wheel
   displayName: 'Install tools'
 
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'areenweb@40.87.8.185'
+    runOptions: 'commands'
+    commands: 'gunicorn --bind=0.0.0.0:1742020 --workers=4 startup:app'
+    readyTimeout: '20000'
