@@ -51,6 +51,9 @@ steps:
     appType: 'webAppLinux'
     appName: '$(help_app)'
     package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+    startUpCommand: 'gunicorn --bind=0.0.0.0:5000 --workers=4 startup:app'
+
+    
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'areenweb@40.87.8.185'
