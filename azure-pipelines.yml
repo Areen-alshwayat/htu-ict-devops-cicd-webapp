@@ -15,7 +15,7 @@ pool:
 #Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
 
-  # Python version: 3.7
+  # Python version: 3.
 steps:
 - task: UsePythonVersion@0
   inputs:
@@ -30,5 +30,34 @@ steps:
          pip install -r requirements.txt
 
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(projectRoot)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
 
+
+
+
+
+#deply webapp
+- task: AzureWebApp@1
+  displayName: 'Deploy Azure Web App : {{ help_app }}'
+  inputs:
+    azureSubscription: '$(azureServiceConnectionId)'
+    appType: 'webAppLinux'
+    appName: '$(help_app)'
+    package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'areenweb@40.87.8.185'
+    sourceFolder: 'hello_app/'
+    contents: '**'
+    targetFolder: '/home/areenweb/hello-app'
+    readyTimeout: '20000'
+    failOnEmptySource: true
+
+  
