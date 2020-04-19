@@ -61,18 +61,17 @@ steps:
     quiet: true
 
 #Copy file
+
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'areenweb@40.87.8.185'
     sourceFolder: 'hello_app/'
     contents: '**'
-    targetFolder: 'webapp.py'
+    targetFolder: '/home/areenweb'
     readyTimeout: '20000'
     failOnEmptySource: true
 
-  #Publish Artifact: drop
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
+
 
 - task: ExtractFiles@1
   displayName: 'Extract files '
@@ -80,3 +79,15 @@ steps:
     destinationFolder: '$(System.DefaultWorkingDirectory)'
     
 
+
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'areenweb@40.87.8.185'
+    sourceFolder: 'hello_app/'
+    contents: |
+      requirements.txt
+      hello.py
+      setup-environment.sh
+    targetFolder: '/home/areenweb'
+    readyTimeout: '20000'
+    failOnEmptySource: true
