@@ -10,10 +10,71 @@ pool:
   vmImage: 'ubuntu-latest'
     
 
+#Use Python 3.x
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: 3.7.6 
+  displayName: 'Use Python 3.7.6'
 
-steps: 
-- script: |
-    bash Install Python.sh
+#Install requirements
+- script: pip install -r requirements.txt
+  displayName: 'Install requirements'  
+#Install dependencies
+
+- script: python -m pip install --upgrade pip setuptools wheel
+  displayName: 'Install tools'
+  
+- script: 
+
+#run test
+- script: 'python test_test1.py'
+  displayName: Pytest
+
+
   
 
+
+#Archive app
+- task: ArchiveFiles@2
+  displayName: 'Archive app'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    archiveFile: '$(Build.ArtifactStagingDirectory)$(Build.BuildId).zip'
+
+
+- task: ArchiveFiles@2
+  displayName: 'Archive tests'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    archiveFile: '$(Build.ArtifactStagingDirectory)$(Build.BuildId).zip'
+
+       
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+    verbose: true
+    quiet: true
+
+#Copy file
+
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'areenweb@40.87.8.185'
+    sourceFolder: 'hello_app/'
+    contents: '**'
+    targetFolder: '/home/areenweb'
+    readyTimeout: '20000'
+    failOnEmptySource: true
+
+
+
+- task: ExtractFiles@1
+  displayName: 'Extract files '
+  inputs:
+    destinationFolder: '$(System.DefaultWorkingDirectory)'
   
