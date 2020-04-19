@@ -33,7 +33,9 @@ steps:
 
 #Publish Test Results 
 - task: PublishTestResults@2
-  displayName: 'Publish Test Results test_test1.py'
+  displayName: 'Publish Test Results' 
+  
+
 
 #Archive app
 - task: ArchiveFiles@2
