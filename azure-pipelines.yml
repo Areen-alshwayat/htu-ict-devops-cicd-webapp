@@ -98,10 +98,6 @@ steps:
     destinationFolder: '$(System.DefaultWorkingDirectory)'
 
 
-    #Your build pipeline references an undefined variable named ‘webAppUrl.AppServiceApplicationUrl’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
-
-- script: 'pip install selenium && pip install pytest && pytest functional_tests/ –webAppUrl=$(webAppUrl.AppServiceApplicationUrl) –junitxml=TestResults/test-results.xml'
-  displayName: 'Command Line Script'
 
 
 - task: PublishTestResults@2
