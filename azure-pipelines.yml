@@ -79,5 +79,4 @@ steps:
   inputs:
     destinationFolder: '$(System.DefaultWorkingDirectory)'
     
-- task: PublishTestResults@2
-  displayName: 'Publish Test Results '
+
