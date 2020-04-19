@@ -25,9 +25,8 @@ steps:
     runOptions: 'inline'
     inline: |
       python -m venv antenv
-               source antenv/bin/activate
                pip install gunicorn
-               pip install -r requirements.txt
+              
     readyTimeout: '20000'
 
 
