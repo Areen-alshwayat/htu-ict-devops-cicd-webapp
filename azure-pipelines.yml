@@ -1,0 +1,143 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+    
+
+
+
+#Use Python 3.x
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: 3.7.6 
+  displayName: 'Use Python 3.7.6'
+ 
+- script: |
+         python -m venv antenv
+         source antenv/bin/activate
+         pip install gunicorn
+
+
+#Install requirements
+- script: pip install -r requirements.txt
+  displayName: 'Install requirements'  
+#Install dependencies
+
+- script: python -m pip install --upgrade pip setuptools wheel
+  displayName: 'Install tools'
+
+
+
+#run test
+- script: 'python test_test1.py'
+  displayName: Pytest
+
+#Publish Test Results **/TEST-*.xml
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results **/TEST-*.xml'
+
+#Archive app
+- task: ArchiveFiles@2
+  displayName: 'Archive app'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    archiveFile: '$(Build.ArtifactStagingDirectory)$(Build.BuildId).zip'
+
+
+- task: ArchiveFiles@2
+  displayName: 'Archive tests'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    archiveFile: '$(Build.ArtifactStagingDirectory)$(Build.BuildId).zip'
+
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'areenweb@40.87.8.185'
+    runOptions: 'commands'
+    commands: 'gunicorn --bind=0.0.0.0:1742 --workers=4 hello:app'
+    readyTimeout: '20000'
+
+
+       
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+    verbose: true
+    quiet: true
+
+#Copy file
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'areenweb@40.87.8.185'
+    sourceFolder: 'hello_app/'
+    contents: '**'
+    targetFolder: 'webapp.py'
+    readyTimeout: '20000'
+    failOnEmptySource: true
+
+  #Publish Artifact: drop
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+
+
+  #Install Python Extension
+- task: AzureAppServiceManage@0
+  displayName: 'Install Python Extension'
+  inputs:
+    azureSubscription: 'flask-webapp'
+    Action: 'Install Extensions'
+    WebAppName: 'AREEN-WEPAPP'
+    ExtensionsList: 'azureappservice-python364x64'
+
+
+    #Azure App Service Deploy
+- task: AzureRmWebAppDeployment@4
+  displayName: 'Azure App Service Deploy'
+  inputs:
+    azureSubscription: 'flask-webapp'
+    appType: webAppLinux
+    WebAppName: 'AREEN-WEPAPP'
+    RuntimeStack: 'PYTHON|3.6'
+    ScriptType: 'Inline Script'
+    InlineScript: |
+     @echo off
+     echo Installing dependencies
+     call “D:\home\python353x86/python.exe” -m pip install -U setuptools
+     if %errorlevel% NEQ 0 (
+     echo Failed to install setuptools >&2
+     EXIT /b 1
+     )
+     call “D:\home\python353x86/python.exe” -m pip install -r requirements.txt
+     if %errorlevel% NEQ 0 (
+     echo Failed to install dependencies>&2
+     EXIT /b 1
+     )
+
+
+
+- task: ExtractFiles@1
+  displayName: 'Extract files '
+  inputs:
+    destinationFolder: '$(System.DefaultWorkingDirectory)'
+
+
+    #Your build pipeline references an undefined variable named ‘webAppUrl.AppServiceApplicationUrl’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+
+- script: 'pip install selenium && pip install pytest && pytest functional_tests/ –webAppUrl=$(webAppUrl.AppServiceApplicationUrl) –junitxml=TestResults/test-results.xml'
+  displayName: 'Command Line Script'
+
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results '
