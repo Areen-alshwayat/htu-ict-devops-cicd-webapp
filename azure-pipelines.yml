@@ -92,38 +92,8 @@ steps:
   displayName: 'Publish Artifact: drop'
 
 
-  #Install Python Extension
-- task: AzureAppServiceManage@0
-  displayName: 'Install Python Extension'
-  inputs:
-    azureSubscription: 'flask-webapp'
-    Action: 'Install Extensions'
-    WebAppName: 'AREEN-WEPAPP'
-    ExtensionsList: 'azureappservice-python364x64'
 
-
-    #Azure App Service Deploy
-- task: AzureRmWebAppDeployment@4
-  displayName: 'Azure App Service Deploy'
-  inputs:
-    azureSubscription: 'flask-webapp'
-    appType: webAppLinux
-    WebAppName: 'AREEN-WEPAPP'
-    RuntimeStack: 'PYTHON|3.6'
-    ScriptType: 'Inline Script'
-    InlineScript: |
-     @echo off
-     echo Installing dependencies
-     call “D:\home\python353x86/python.exe” -m pip install -U setuptools
-     if %errorlevel% NEQ 0 (
-     echo Failed to install setuptools >&2
-     EXIT /b 1
-     )
-     call “D:\home\python353x86/python.exe” -m pip install -r requirements.txt
-     if %errorlevel% NEQ 0 (
-     echo Failed to install dependencies>&2
-     EXIT /b 1
-     )
+  
 
 
 
