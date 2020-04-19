@@ -13,7 +13,7 @@ pool:
 
 steps: 
 - script: |
-    bash   Install Python.sh
+    bash Install Python.sh
   displayName: 'Install Python enviremnint script'
 
   
