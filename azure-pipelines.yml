@@ -41,7 +41,7 @@ steps:
 
 #Publish Test Results **/TEST-*.xml
 - task: PublishTestResults@2
-  displayName: 'Publish Test Results **/TEST-*.xml'
+  displayName: 'Publish Test Results test_test1.py'
 
 #Archive app
 - task: ArchiveFiles@2
