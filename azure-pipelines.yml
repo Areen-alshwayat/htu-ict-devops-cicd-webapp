@@ -31,9 +31,7 @@ steps:
 - script: 'python test_test1.py'
   displayName: Pytest
 
-#Publish Test Results 
-- task: PublishTestResults@2
-  displayName: 'Publish Test Results' 
+
   
 
 
