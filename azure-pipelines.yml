@@ -18,18 +18,6 @@ steps:
   inputs:
     versionSpec: 3.7.6 
   displayName: 'Use Python 3.7.6'
- 
-- task: SSH@0
-  inputs:
-    sshEndpoint: 'areenweb@40.87.8.185'
-    runOptions: 'inline'
-    inline: |
-      python -m venv antenv
-               pip install gunicorn
-               
-      gunicorn --bind=0.0.0.0:1742 --workers=4 hello:app
-    readyTimeout: '20000'
-
 
 #Install requirements
 - script: pip install -r requirements.txt
@@ -38,8 +26,6 @@ steps:
 
 - script: python -m pip install --upgrade pip setuptools wheel
   displayName: 'Install tools'
-
-
 
 #run test
 - script: 'python test_test1.py'
@@ -62,10 +48,6 @@ steps:
   inputs:
     rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
     archiveFile: '$(Build.ArtifactStagingDirectory)$(Build.BuildId).zip'
-
-
-
-
 
        
 - task: ArchiveFiles@2
@@ -92,19 +74,10 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
 
-
-
-  
-
-
-
 - task: ExtractFiles@1
   displayName: 'Extract files '
   inputs:
     destinationFolder: '$(System.DefaultWorkingDirectory)'
-
-
-
-
+    
 - task: PublishTestResults@2
   displayName: 'Publish Test Results '
