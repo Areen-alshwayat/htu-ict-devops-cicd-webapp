@@ -30,7 +30,7 @@ steps:
 - script: |
    pip install gunicorn flask
    gunicorn --bind=0.0.0.0:1742 --workers=4 hello:app
-  displayName: 'Install gunicorn tools ''
+  displayName: 'Install gunicorn tools '
 
 #run test
 - script: python test_test1.py
