@@ -76,13 +76,14 @@ steps:
 
 #Copy file
 
-- task: CopyFilesOverSSH@0
+- task: SSH@0
   inputs:
     sshEndpoint: 'areenweb@40.87.8.185'
-    contents: 'run_server.sh'
-    targetFolder: '/home/webapp/$(Build.ArtifactsStagingDirectory)'
+    runOptions: 'commands'
+    commands: |
+      server_run
+      requirement.txt
     readyTimeout: '20000'
-    failOnEmptySource: true
 
 
 
