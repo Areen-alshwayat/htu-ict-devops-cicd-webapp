@@ -17,9 +17,9 @@ steps:
     versionSpec: 3.7.6 
   displayName: 'Use Python 3.7.6'
 
-#- script: 
-  #  pip install -r requirements.txt
-  #displayName: 'install requirements.txt'
+- script: 
+   pip install gunicorn
+  displayName: 'install gunicorn'
 
 #- script: | 
    # python -m pip install --upgrade pip 
@@ -80,7 +80,7 @@ steps:
   inputs:
     sshEndpoint: 'areenweb@40.87.8.185'
     sourceFolder: 'hello_app/'
-    contents: '**'
+    contents: 'run_server.sh'
     targetFolder: '/home/areenweb'
     readyTimeout: '20000'
     failOnEmptySource: true
