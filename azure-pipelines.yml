@@ -39,10 +39,10 @@ steps:
    gunicorn --bind=40.87.8.185:1742 --workers=4 hello:app
   displayName: 'Install gunicorn tools '
 
-#run test
+
+  #run test
 - script: python test_test1.py
   displayName: 'Pytest'
-
 
 
 #Archive app
@@ -87,4 +87,3 @@ steps:
   displayName: 'Extract files '
   inputs:
     destinationFolder: '$(System.DefaultWorkingDirectory)'
-  
