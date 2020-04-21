@@ -79,9 +79,9 @@ steps:
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'areenweb@40.87.8.185'
-    sourceFolder: 'hello_app/'
+    sourceFolder: '$(Build.SourcesDirectory)'
     contents: 'run_server.sh'
-    targetFolder: '~/htu-ict-devops-cicd-webapp/webapp'
+    targetFolder: '$(Build.ArtifactsStagingDirectory)'
     readyTimeout: '20000'
     failOnEmptySource: true
 
