@@ -17,9 +17,9 @@ steps:
     versionSpec: 3.7.6 
   displayName: 'Use Python 3.7.6'
 
-- script: 
-    pip install -r requirements.txt
-  displayName: 'install requirements.txt'
+#- script: 
+  #  pip install -r requirements.txt
+  #displayName: 'install requirements.txt'
 
 #- script: | 
    # python -m pip install --upgrade pip 
@@ -30,6 +30,7 @@ steps:
 - script: |
         python -m venv env
         source env/bin/activate
+        pip install -r requirements.txt
   displayName: 'Install enverionment'
 
 
@@ -77,7 +78,7 @@ steps:
     sshEndpoint: 'areenweb@40.87.8.185'
     sourceFolder: 'hello_app/'
     contents: '**'
-    targetFolder: '/home/htu-ict-devops-cicd-webapp/areenweb'
+    targetFolder: '/home/areenweb'
     readyTimeout: '20000'
     failOnEmptySource: true
 
