@@ -80,7 +80,7 @@ steps:
   inputs:
     sshEndpoint: 'python-areen@40.121.233.173'
     contents: '**'
-    targetFolder: '/home/wepapp'
+    targetFolder: '/home/python-areen'
     readyTimeout: '20000'
 
 
