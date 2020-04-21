@@ -86,6 +86,14 @@ steps:
     readyTimeout: '20000'
 
 
+- task: SSH@0
+  inputs:
+        sshEndpoint: 'areenweb@40.87.8.185'
+        runOptions: 'commands'
+        commands: 'hello.py'
+        readyTimeout: '20000'
+
+
 
 - task: ExtractFiles@1
   displayName: 'Extract files '
