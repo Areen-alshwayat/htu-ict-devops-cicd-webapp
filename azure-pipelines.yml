@@ -76,13 +76,11 @@ steps:
 
 #Copy file
 
-- task: SSH@0
+- task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'areenweb@40.87.8.185'
-    runOptions: 'commands'
-    commands: |
-      server_run
-      requirement.txt
+    contents: '**'
+    targetFolder: '/home/wepapp'
     readyTimeout: '20000'
 
 
