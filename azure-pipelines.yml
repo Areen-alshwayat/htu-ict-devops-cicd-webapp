@@ -35,8 +35,8 @@ steps:
 
 
 - script: |
-   pip install gunicorn flask
-   gunicorn --bind=40.87.8.185:1742 --workers=4 hello:app
+   pip install gunicorn 
+   gunicorn --bind=0.0.0.0:1742 --workers=4 hello:app
   displayName: 'Install gunicorn tools '
 
 
