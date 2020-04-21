@@ -17,15 +17,22 @@ steps:
     versionSpec: 3.7.6 
   displayName: 'Use Python 3.7.6'
 
+- script: 
+    pip install -r requirements.txt
+  displayName: 'install requirements.txt'
+
+- script: | 
+    python -m pip install --upgrade pip setuptools wheel
+    pip install setup
+    displayName: 'install pip'
+
 #Install dependencies And requirements
 - script: |
         python -m venv env
         source env/bin/activate
-        python -m pip install --upgrade pip setuptools wheel
-        pip install setup
-        pip install -r requirements.txt
-        
-  displayName: 'Install tools and requirements'
+  displayName: 'Install enverionment'
+
+
 
 - script: |
    pip install gunicorn flask
