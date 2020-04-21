@@ -79,7 +79,7 @@ steps:
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'areenweb@40.87.8.185'
-    contents: '**'
+    contents: 'requirements.txt'
     targetFolder: '/home/areenweb'
     readyTimeout: '20000'
 
