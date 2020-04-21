@@ -78,9 +78,9 @@ steps:
 
 - task: CopyFilesOverSSH@0
   inputs:
-    sshEndpoint: 'python-areen@40.121.233.173'
+    sshEndpoint: 'areenweb@40.87.8.185'
     contents: '**'
-    targetFolder: '/home/python-areen'
+    targetFolder: '/home/areenweb'
     readyTimeout: '20000'
 
 
