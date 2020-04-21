@@ -81,7 +81,7 @@ steps:
     sshEndpoint: 'areenweb@40.87.8.185'
     sourceFolder: 'hello_app/'
     contents: 'run_server.sh'
-    targetFolder: '/home/areenweb'
+    targetFolder: '~/htu-ict-devops-cicd-webapp/webapp'
     readyTimeout: '20000'
     failOnEmptySource: true
 
