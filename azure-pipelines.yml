@@ -22,9 +22,9 @@ steps:
   displayName: 'install gunicorn'
 
 #- script: | 
-   # python -m pip install --upgrade pip 
-   # pip install setup
-  #displayName: 'install pip'
+# python -m pip install --upgrade pip 
+   #pip install setup
+   # displayName: 'install pip'
 
 #Install dependencies And requirements
 - script: |
@@ -94,8 +94,6 @@ steps:
     commands: |
       sudo apt-get install python3-venv 
       sudo apt-get install python3-pip 
-      source venv/bin/activate
-      pip3 install gunicorn
       export FLASK=hello.py
     readyTimeout: '20000'
 
