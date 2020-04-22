@@ -20,16 +20,13 @@ steps:
 
 #Creating Virtual Environments
 - script:
-   python3 -m venv tutorial-env
-   tutorial-env\Scripts\activate.bat
-   source tutorial-env/bin/activate
-   source ~/envs/tutorial-env/bin/activate
-   pip search astronomy
-   pip install novas
-   pip install --upgrade requests
-   pip list
-   pip install -r requirements.txt
-
+   python -m pip install --upgrade pip
+   python3 -m venv project
+   source project/bin/activate
+   pip3 install -r requirements.txt
+   pip3 list
+   deactivate
+   
 
 # install flask
 - script:
