@@ -17,14 +17,30 @@ steps:
     versionSpec: 3.7.6 
   displayName: 'Use Python 3.7.6'
 
+
+#Creating Virtual Environments
+- script:
+   python3 -m venv tutorial-env
+   tutorial-env\Scripts\activate.bat
+   source tutorial-env/bin/activate
+   source ~/envs/tutorial-env/bin/activate
+   pip search astronomy
+   pip install novas
+   pip install --upgrade requests
+   pip list
+   pip install -r requirements.txt
+
+
+# install flask
+- script:
+   pip install Flask
+   install python-virtualenv
+
+
 - script: 
    pip install gunicorn
   displayName: 'install gunicorn'
 
-#- script: | 
-# python -m pip install --upgrade pip 
-   #pip install setup
-   # displayName: 'install pip'
 
 #Install dependencies And requirements
 - script: |
@@ -92,8 +108,8 @@ steps:
     sshEndpoint: 'areenweb@40.87.8.185'
     runOptions: 'commands'
     commands: |
-      sudo apt-get install python3-venv 
-      sudo apt-get install python3-pip 
+      install python3-venv 
+       install python3-pip 
       export FLASK=hello.py
     readyTimeout: '20000'
 
